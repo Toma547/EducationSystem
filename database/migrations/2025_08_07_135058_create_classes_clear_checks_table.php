@@ -14,7 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('classes_clear_checks', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+
+            $table->foreignId('users_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('grade_id')->constrained('grades')->onDelete('cascade');
+            
             $table->timestamps();
         });
     }
