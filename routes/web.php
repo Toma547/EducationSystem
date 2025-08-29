@@ -20,6 +20,6 @@ Route::get('/', function () {
 
 // ユーザー本人専用の進捗画面
 Route::middleware(['auth'])->group(function() {
-    Route::get('/my-progress', [ProgressController::class, 'index'])->name('progress.index');
+    Route::get('/progress', [ProgressController::class, 'index'])->name('progress.index');
     Route::post('/progress/toggle', [ProgressController::class, 'toggle'])->name('progress.toggle');
 });
