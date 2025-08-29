@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Curriculum;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -16,6 +18,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             GradesTableSeeder::class,
+            CurriculumsTableSeeder::class,
         ]);
         // \App\Models\User::factory(10)->create();
 
