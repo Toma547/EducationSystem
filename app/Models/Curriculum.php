@@ -9,6 +9,9 @@ class Curriculum extends Model
 {
     use HasFactory;
 
+    // テーブル名を明示
+    protected $table = 'curriculums';
+
     protected $fillable = [
         'title',
         'grade',

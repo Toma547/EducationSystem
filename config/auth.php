@@ -36,9 +36,16 @@ return [
     */
 
     'guards' => [
+        // ユーザ用
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
+        ],
+
+        // 管理者用
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
         ],
     ],
 
@@ -60,6 +67,7 @@ return [
     */
 
     'providers' => [
+        // ユーザー用
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
@@ -69,6 +77,12 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+
+        //管理者用
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => \App\Models\Admin::class, // Adminモデルを作成
+        ],
     ],
 
     /*
@@ -89,6 +103,13 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
+        'admins' => [
+            'provider' => 'admins',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
