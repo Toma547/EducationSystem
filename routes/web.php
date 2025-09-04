@@ -1,6 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\CurriculumController;
+use App\Http\Controllers\Admin\DeliveryController;
+use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\Admin\RegisterController;
+use App\Http\Controllers\Admin\TopController;
+use App\Http\Controllers\Admin\ArticleController;
+use App\Http\Controllers\Admin\BannerController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -24,35 +32,35 @@ Route::prefix('admin')
     ->group(function () {
 
         // ログイン画面
-        Route::get('/login', 'LoginController@showLoginForm')->name('show.login');
+        Route::get('/admin/login', [LoginController::class,'showLoginForm'])->name('show.login');
 
         // ユーザー新規登録画面
-        Route::get('/register', 'RegisterController@showRegisterForm')->name('show.register');
+        Route::get('/admin/register', [RegisterController::class,'showRegisterForm'])->name('show.register');
 
         // トップページ
-        Route::get('/top', 'TopController@showTop')->name('show.top');
+        Route::get('/admin/top', [TopController::class,'TopController'])->name('show.top');
 
         // 授業一覧画面
-        Route::get('/curriculum_list', 'CurriculumController@showCurriculumList')->name('show.curriculum.list');
+        Route::get('/admin/curriculum_create',[CurriculumController::class, 'showCurriculumList'])->name('show.curriculum.list');
 
         // 授業新規登録画面
-        Route::get('/curriculum_create', 'CurriculumController@showCurriculumCreate')->name('show.curriculum.create');
+        Route::get('/admin/curriculum_create', [CurriculumController::class,'showCurriculumCreate'])->name('show.curriculum.create');
 
         // 授業編集画面
-        Route::get('/curriculum_edit/{id}', 'CurriculumController@showCurriculumEdit')->name('show.curriculum.edit');
+        Route::get('/admin/curriculum_edit/{id}', [CurriculumController::class,'showCurriculumEdit'])->name('show.curriculum.edit');
 
         // 配信日時設定画面
-        Route::get('/delivery_edit/{id}', 'DeliveryController@showDeliveryEdit')->name('show.delivery.edit');
+        Route::get('/admin/delivery_edit/{id}', [DeliveryController::class,'showDeliveryEdit'])->name('show.delivery.edit');
 
         // お知らせ一覧画面
-        Route::get('/article_list', 'ArticleController@showArticleList')->name('show.article.list');
+        Route::get('/admin/article_list', [ArticleController::class,'showArticleList'])->name('show.article.list');
 
         // お知らせ新規登録画面
-        Route::get('/article_create', 'ArticleController@showArticleCreate')->name('show.article.create');
+        Route::get('/admin/article_create', [ArticleController::class,'showArticleCreate'])->name('show.article.create');
 
         // お知らせ編集画面
-        Route::get('/article_edit/{id}', 'ArticleController@showArticleEdit')->name('show.article.edit');
+        Route::get('/admin/article_edit/{id}', [ArticleController::class,'showArticleEdit'])->name('show.article.edit');
 
         // バナー設定画面
-        Route::get('/banner_edit', 'BannerController@showBannerEdit')->name('show.banner.edit');
+        Route::get('/admin/banner_edit', [BannerController::class,'showBannerEdit'])->name('show.banner.edit');
 });

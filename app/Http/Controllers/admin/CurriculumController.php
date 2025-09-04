@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 
@@ -8,3 +8,5 @@ class CurriculumController extends Controller
 {
     //
 }
+
+

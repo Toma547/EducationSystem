@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class DeliveryTime extends Model
 {
     use HasFactory;
+
+    protected $table = 'delivery_times';
+
+    protected $fillable = [
+        'curriculums_id',
+        'delivery_from',
+        'delivery_to',
+    ];
 }
