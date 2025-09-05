@@ -13,14 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('curriculums', function (Blueprint $table) {
+        Schema::create('delivery_times', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('title')->nullable();
-            $table->string('thumbnail');
-            $table->longText('description');
-            $table->mediumText('video_url');
-            $table->tinyInteger('alway_delivery_flg')->nullable();
-            $table->integer('grade_id')->nullable();
+            $table->foreignId('curriculums_id')->nullable()->constrained('curriculums')->onDelete('cascade');
+            $table->dateTime('delivery_from')->nullable();
+            $table->dateTime('delivery_to')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('curriculums');
+        Schema::dropIfExists('delivery_times');
     }
 };
