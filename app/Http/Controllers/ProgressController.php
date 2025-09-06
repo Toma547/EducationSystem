@@ -47,5 +47,23 @@ class ProgressController extends Controller
 
         return response()->json(['status' => 'success', 'completed' => $progress-> clear_flg]);
     }
+
+    //デモ用：「受講しました」ボタン
+    public function complete(Request $request, Curriculum $curriculum)
+    {
+        $progress = CurriculumProgress::firstOrCreate(
+            [
+                'user_id' => Auth::id(),
+                'curriculum_id' => $curriculum->id,
+            ],
+            ['clear_flg']
+        );
+
+        // 受講済みに更新
+        $progress->clear_flg = true;
+        $progress->save();
+
+        return back()->with('status', '受講済みにしました！');
+    }
     
 }

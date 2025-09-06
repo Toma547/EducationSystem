@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="ja">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,9 +14,20 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
+    <body class="font-sans antialiased bg-white">
+        <div class="min-h-screen">
+            {{-- 共通ナビゲーションバー --}}
+            <header class="bg-orange-500 p-3 flex justify-between items-center">
+                <div class="flex space-x-4">
+                    <a href="{{ url('/curriculum_list') }}" class="bg-teal-400 text-white px-4 py-2 rounded">時間割</a>
+                    <a href="{{ route('progress.index') }}" class="bg-teal-600 text-white px-4 py-2 rounded">授業進捗</a>
+                    <a href="{{ url('/profile') }}" class="bg-teal-400 text-white px-4 py-2 rounded">プロフィール設定</a>
+                </div>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="text-white font-bold">ログアウト</button>
+                </form>
+            </header>
 
             <!-- Page Heading -->
             @if (isset($header))
@@ -27,9 +38,9 @@
                 </header>
             @endif
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
+            <!-- コンテンツ -->
+            <main class="p-6">
+                @yield('content')
             </main>
         </div>
     </body>
