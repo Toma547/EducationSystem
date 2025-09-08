@@ -23,12 +23,18 @@ class CurriculumsTableSeeder extends Seeder
             '高校1年生', '高校2年生', '高校3年生'
         ];
 
-        foreach ($grades as $gradeId => $gradeName) {
+        // gradesテーブルから全学年を取得
+        $grades = DB::table('grades')->get();
+
+        foreach ($grades as $grade) {
             for ($i = 1; $i <= 5; $i++) { //各学年 5授業固定
                 DB::table('curriculums')->insert([
-                    'grade_id'   => $gradeId,
+                    'grade_id'   => $grade->id, //正しい学年IDをセット
                     'title'   => "授業タイトル{$i}", //固定タイトル
-                    'thumbnail' => 'noimage.png', 
+                    'thumbnail' => 'noimage.png',
+                    'description' => "これは {$grade->name} の授業タイトル{$i}の説明です。 ", //ダミー説明
+                    'video_url' => "https://example.com/dummy_videos/grade" . ($grade->id +1) . "_lesson{$i}.mp4", // 動画URL（ダミー）
+                    'alway_delivery_flg' => false, //デフォルトは配信しない
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);

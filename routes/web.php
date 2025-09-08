@@ -17,12 +17,9 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // 最初にloginにリダイレクトする
+    return redirect()->route('login');
 });
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/register', [RegisteredUserController::class, 'create'])
     ->middleware('guest')
@@ -44,6 +41,11 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/progress/toggle', [ProgressController::class, 'toggle'])
         ->name('progress.toggle');
+
+    //
+    Route::get('/curriculums/{id}', function($id){
+        return "授業ID {$id} の配信画面（仮）";
+    });
      
     // デモ用：「受講しました」ボタン    
     Route::post('/progress/complete/{curriculum}', [ProgressController::class, 'complete'])

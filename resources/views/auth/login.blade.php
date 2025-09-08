@@ -44,4 +44,11 @@
             </x-primary-button>
         </div>
     </form>
+
+    <!-- 新規登録リンク -->
+     <div class="mt-6 text-center">
+        <a href="{{ route('register') }}" class="text-indigo-600 hover:text-indigo-800 font-bold">
+            新規登録はこちら
+        </a>
+     </div>
 </x-guest-layout>

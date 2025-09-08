@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Curriculum;
+use App\Models\Grade;
 use App\Models\CurriculumProgress;
 
 class ProgressController extends Controller
@@ -14,56 +15,89 @@ class ProgressController extends Controller
     {
         $user = Auth::user();
 
-        // 学年リスト（固定12ブロック）
-        $grades = [
-            '小学生1年生', '小学校2年生', '小学校3年生',
-            '小学校4年生', '小学校5年生', '小学校6年生',
-            '中学校1年生', '中学校2年生', '中学校3年生',
-            '高校1年生', '高校2年生', '高校3年生'
-        ];
+        // DBから学年一覧を取得（順番通り）
+        $grades = Grade::orderBy('id')->get();
 
-        // curriculums を grade ごとに取得
-        $curriculums = Curriculum::all()->groupBy('grade');
+        // 学年ごとにカリキュラムをまとめる
+        $curriculums = [];
+        foreach ($grades as $grade) {
+            $curriculums[$grade->id] = Curriculum::where('grade_id', $grade->id)->get();
+        }
 
-        // ユーザー進捗
+        // ユーザー進捗(curriculums_id をキーにする)
         $progress = CurriculumProgress::where('user_id' , $user->id)
                     ->get()
                     ->keyBy('curriculum_id');
 
-        return view('progress.index', compact('user', 'grades', 'curriculums', 'progress'));
+        // 現在の学年を判定
+        $currentGrade = null;
+        
+        foreach ($grades as $grade) {
+            $gradeCurriculums = $curriculums[$grade->id] ?? collect();
+
+            if ($gradeCurriculums->isEmpty()) {
+                continue;
+            }
+
+            // 学年内の全授業クリア済みかどうか
+            $allCleared = $gradeCurriculums->every(function ($c) use ($progress) {
+                return isset($progress[$c->id]) && $progress[$c->id]->clear_flg;
+            });
+
+            if (!$allCleared) {
+                $currentGrade = $grade;
+                break;
+            }
+        }
+
+        // 全部クリアしていたら最後の学年を現在学年にする
+        if (!$currentGrade) {
+            $currentGrade = $grades->last();
+        }
+
+        return view('progress.index', compact('user', 'grades', 'curriculums', 'progress', 'currentGrade'));
     }
 
     //　受講済みトグル
     public function toggle(Request $request)
     {
-        $progress = CurriculumProgress::find($request->id);
+        $curriculumId = $request->curriculum_id;
 
-        if (!$progress || $progress->user_id !== Auth::id()) {
-            return response()->json(['status' => 'error', 'message' => '対象データが見つかりません'], 404);
-        }
-
-        $progress-> clear_flg = !$progress->clear_flg;
-        $progress-> save();
-
-        return response()->json(['status' => 'success', 'completed' => $progress-> clear_flg]);
-    }
-
-    //デモ用：「受講しました」ボタン
-    public function complete(Request $request, Curriculum $curriculum)
-    {
+        // progressを取得or作成
         $progress = CurriculumProgress::firstOrCreate(
             [
                 'user_id' => Auth::id(),
-                'curriculum_id' => $curriculum->id,
+                'curriculum_id' => $curriculumId,
             ],
-            ['clear_flg']
+            ['clear_flg' => false] // 初期は未受講
         );
 
-        // 受講済みに更新
-        $progress->clear_flg = true;
-        $progress->save();
+        // フラグをトグル
+        $progress-> clear_flg = !$progress->clear_flg;
+        $progress-> save();
 
-        return back()->with('status', '受講済みにしました！');
+        return response()->json([
+            'status' => 'success',
+            'completed' => $progress-> clear_flg
+        ]);
+    }
+
+    //デモ用：「受講しました」ボタン
+    //public function complete(Request $request, Curriculum $curriculum)
+    //{
+    //    $progress = CurriculumProgress::firstOrCreate(
+    //        [
+    //            'user_id' => Auth::id(),
+    //            'curriculum_id' => $curriculum->id,
+    //        ],
+    //        ['clear_flg' => false]
+    //    );
+
+        // 受講済みに更新
+    //    $progress->clear_flg = true;
+    //    $progress->save();
+
+    //    return back()->with('status', '受講済みにしました！');
     }
     
-}
+//}

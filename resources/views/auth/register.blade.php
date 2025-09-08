@@ -49,4 +49,11 @@
             </x-primary-button>
         </div>
     </form>
+
+    <!-- ログインリンク -->
+     <div class="mt-6 text-center">
+        <a href="{{ route('login') }}" class="text-indigo-600 hover:text-indigo-800 font-bold">
+            ログインはこちら
+        </a>
+     </div>
 </x-guest-layout>

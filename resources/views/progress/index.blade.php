@@ -25,7 +25,7 @@
         <h2 class="text-3xl font-bold">{{ $user->name }} さんの授業進捗</h2>
         <p class="mt-3 text-lg">現在の学年：
             <span class="px-4 py-1 bg-teal-300 text-white rounded-full text-base">
-                {{ $user->grade }}
+                {{ $currentGrade->name }}
             </span>
         </p>
     </div>
@@ -37,18 +37,17 @@
       <div class="bg-white p-5 rounded-2xl shadow-md border border border-gray-200">
         <!--学年タイトル-->
         <h5 class="text-center mb-4">
-            <span class="inline-block px-3 py-1 rounded-full text-sm font-semibold
-                         {{ Str::contains($grade, '小学校') ? 'bg-teal-200' :
-                            (Str::contains($grade, '中学校') ? 'bg-blue-200' : 'bg-green-200') }}">
-                {{ $grade }}
+            <span class="inline-block px-3 py-1 rounded-full text-sm font-semibold bg-teal-200">
+                {{ $grade->name }}
             </span>
         </h5>
 
         <!-- 授業リスト -->
         <ul class="space-y-3">
         @php
-            $classes = $curriculums[$grade] ?? collect([]);
-            $isActive = array_search($grade, $grades) <= array_search($user->grade, $grades);
+            $classes = $curriculums[$grade->id] ?? collect([]);
+            // 現在の学年以下は有効、それより上は非活性
+            $isActive = $grade->id <= $currentGrade->id;
         @endphp
             
         @foreach($classes as $class)
@@ -60,14 +59,14 @@
               @if($isActive)
                  {{-- 現在の学年以下なのでリンク有効 --}}
                     <a href="{{ url('/curriculums/'.$class->id) }}"
-                       class="flex-1 {{ $done ? 'text-red-600 font-bold' : 'text-gray-800' }}">
-                        {{ $done ? '受講済' : ''}} {{ $class->title }}
+                       class="hover:underline {{ $done ? 'text-red-600 font-bold' : 'text-gray-800' }}">
+                        @if($done) ✅ 受講済 @endif {{ $class->title }}
                     </a>
 
                  <!-- デモ用：受講トグルボタン -->
-                 <button class="ml-2 px-3 py-1 text-sm toggle-btn
+                <button class="ml-2 px-3 py-1 text-sm toggle-btn
                                {{ $done ? 'bg-red-500 text-white' : 'bg-gray-200 text-gray-700' }}"
-                         data-id="{{ $progress[$class->id]->id ?? '' }}">
+                         data-id="{{ $class->id }}">
                     {{ $done ? '未受講に戻す' : '受講しました' }}
                  </button>
                 @else
@@ -89,10 +88,10 @@
 <script>
     $(function(){
         $(".toggle-btn").click(function(){
-            let id = $(this).data("id");
+            let curriculumId = $(this).data("id");
 
             $.post("{{ route('progress.toggle') }}", {
-                id: id,
+                curriculum_id: curriculumId,
                 _token: "{{ csrf_token() }}"
             }, function(res){
                 if(res.status === 'success'){
