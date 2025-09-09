@@ -16,7 +16,7 @@
     </head>
     <body class="font-sans antialiased bg-white">
         <div class="min-h-screen">
-            {{-- 共通ナビゲーションバー --}}
+            {{-- 共通ヘッダー --}}
             <header class="bg-orange-500 p-3 flex justify-between items-center">
                 <div class="flex space-x-4">
                     <a href="{{ url('/curriculum_list') }}" class="bg-teal-400 text-white px-4 py-2 rounded">時間割</a>
