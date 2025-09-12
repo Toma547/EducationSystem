@@ -55,7 +55,7 @@ class ProgressController extends Controller
             $currentGrade = $grades->last();
         }
 
-        return view('progress.index', compact('user', 'grades', 'curriculums', 'progress', 'currentGrade'));
+        return view('progress.curriculum_progress', compact('user', 'grades', 'curriculums', 'progress', 'currentGrade'));
     }
 
     //　受講済みトグル
