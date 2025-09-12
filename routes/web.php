@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\User\Auth\ProfileController;
 use App\Http\Controllers\ProgressController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisteredUserController;
@@ -35,7 +35,7 @@ Route::get('/login', [AuthenticatedSessionController::class, 'create'])
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])
     ->middleware('guest');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth')->prefix('user')->group(function () {
     Route::get('/progress', [ProgressController::class, 'index'])
         ->name('progress.index');   
 
@@ -51,9 +51,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/progress/complete/{curriculum}', [ProgressController::class, 'complete'])
         ->name('progress.complete');    
 
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('user.profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('user.profile.update');
+
+    Route::get('/password', [ProfileController::class, 'editPassword'])->name('user.password.edit');
+    Route::patch('/password', [ProfileController::class, 'updatePassword'])->name('user.password.update');
 });
 
 require __DIR__.'/auth.php';

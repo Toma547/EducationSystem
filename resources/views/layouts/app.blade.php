@@ -21,7 +21,7 @@
                 <div class="flex space-x-4">
                     <a href="{{ url('/curriculum_list') }}" class="bg-teal-400 text-white px-4 py-2 rounded">時間割</a>
                     <a href="{{ route('progress.index') }}" class="bg-teal-600 text-white px-4 py-2 rounded">授業進捗</a>
-                    <a href="{{ url('/profile') }}" class="bg-teal-400 text-white px-4 py-2 rounded">プロフィール設定</a>
+                    <a href="{{ route('user.profile.edit') }}" class="bg-teal-400 text-white px-4 py-2 rounded">プロフィール設定</a>
                 </div>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
