@@ -28,7 +28,7 @@ class LoginController extends Controller
 
         if (Auth::guard('web')->attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/progress'); //ログイン後に進捗画面へ
+            return redirect()->route('user.articles.index'); //ログイン後にお知らせ一覧へ
         }
 
         return back()->withErrors([

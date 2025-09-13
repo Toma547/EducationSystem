@@ -48,6 +48,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('progress.index'); // ログイン後の遷移先
+        return redirect()->route('user.articles.index'); // ログイン後の遷移先
     }
 }
