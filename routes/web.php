@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\User\Auth\ProfileController;
 use App\Http\Controllers\ProgressController;
+use App\Http\Controllers\User\Auth\ArticleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
@@ -35,6 +36,7 @@ Route::get('/login', [AuthenticatedSessionController::class, 'create'])
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])
     ->middleware('guest');
 
+// 授業進捗画面ページ
 Route::middleware('auth')->prefix('user')->group(function () {
     Route::get('/progress', [ProgressController::class, 'index'])
         ->name('progress.index');   
@@ -42,9 +44,15 @@ Route::middleware('auth')->prefix('user')->group(function () {
     Route::post('/progress/toggle', [ProgressController::class, 'toggle'])
         ->name('progress.toggle');
 
-    //
+    // 授業配信ページ（仮）
     Route::get('/curriculums/{id}', function($id){
         return "授業ID {$id} の配信画面（仮）";
+    });
+
+    // お知らせ一覧・詳細ページ
+    Route::name('user.')->group(function() {
+        Route::get('articles', [ArticleController::class, 'index'])->name('articles.index');
+        Route::get('articles/{id}', [ArticleController::class, 'show'])->name('articles.show');
     });
      
     // デモ用：「受講しました」ボタン    
