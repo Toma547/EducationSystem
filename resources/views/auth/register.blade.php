@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
+    <form method="POST" action="{{ route('user.register') }}">
         @csrf
 
         <!-- Name -->
@@ -52,7 +52,7 @@
 
     <!-- ログインリンク -->
      <div class="mt-6 text-center">
-        <a href="{{ route('login') }}" class="text-indigo-600 hover:text-indigo-800 font-bold">
+        <a href="{{ route('user.login') }}" class="text-indigo-600 hover:text-indigo-800 font-bold">
             ログインはこちら
         </a>
      </div>

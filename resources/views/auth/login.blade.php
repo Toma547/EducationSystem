@@ -2,7 +2,7 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <form method="POST" action="{{ route('login') }}">
+    <form method="POST" action="{{ route('user.login') }}">
         @csrf
 
         <!-- Email Address -->
@@ -47,7 +47,7 @@
 
     <!-- 新規登録リンク -->
      <div class="mt-6 text-center">
-        <a href="{{ route('register') }}" class="text-indigo-600 hover:text-indigo-800 font-bold">
+        <a href="{{ route('user.register') }}" class="text-indigo-600 hover:text-indigo-800 font-bold">
             新規登録はこちら
         </a>
      </div>
