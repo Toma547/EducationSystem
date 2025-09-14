@@ -23,21 +23,34 @@
             <label>名前:</label>
             <input type="text" name="name" value="{{ old('name') }}" required>
         </div>
+
+        <div>
+            <label>カナ</label>
+            <input type="text" name="kana" value="{{ old('kana') }}" required>
+        </div>
+
         <div>
             <label>メールアドレス:</label>
             <input type="email" name="email" value="{{ old('email') }}" required>
         </div>
+
         <div>
             <label>パスワード:</label>
             <input type="password" name="password" required>
         </div>
+
         <div>
             <label>パスワード（確認用）:</label>
             <input type="password" name="password_confirmation" required>
         </div>
+
         <div>
             <button type="submit">登録</button>
         </div>
     </form>
+    <p>
+        すでにアカウントはお持ちですか？
+        <a href="{{ route('admin.login') }}">ログインはこちら</a>
+    </p>
 </body>
 </html>

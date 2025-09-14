@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -10,6 +10,7 @@ class AdminLoginController extends Controller
 {
     public function showLoginForm()
     {
+        // resources/views/auth/admin-login.blade.php を返す
         return view('auth.admin-login');
     }
 
@@ -18,7 +19,8 @@ class AdminLoginController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::guard('admin')->attempt($credentials, $request->filled('remember'))) {
-            return redirect()->intended('/admin/dashboard');
+            // 成功したらお知らせ一覧へ
+            return redirect()->intended(route('admin.articles.index'));
         }
 
         return back()->withErrors([
@@ -32,6 +34,6 @@ class AdminLoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/admin/login');
+        return redirect()->route('admin.login');
     }
 }

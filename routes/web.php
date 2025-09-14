@@ -18,23 +18,31 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 */
 
 Route::get('/', function () {
-    // 最初にloginにリダイレクトする
-    return redirect()->route('login');
+    // 最初にユーザーloginにリダイレクトする
+    return redirect()->route('user.login');
 });
 
-Route::get('/register', [RegisteredUserController::class, 'create'])
-    ->middleware('guest')
-    ->name('register');
+// ユーザー認証ルート
+Route::prefix('user')->name('user.')->group(function () {
+    // 新規登録
+    Route::get('/register', [RegisteredUserController::class, 'create'])
+        ->middleware('guest')
+        ->name('register');
+    Route::post('/register', [RegisteredUserController::class, 'store'])
+        ->middleware('guest');
 
-Route::post('/register', [RegisteredUserController::class, 'store'])
-    ->middleware('guest');
+    // ログイン
+    Route::get('/login', [AuthenticatedSessionController::class, 'create'])
+        ->middleware('guest')
+        ->name('login');
+    Route::post('/login', [AuthenticatedSessionController::class, 'store'])
+        ->middleware('guest');
 
-Route::get('/login', [AuthenticatedSessionController::class, 'create'])
-    ->middleware('guest')
-    ->name('login');
-
-Route::post('/login', [AuthenticatedSessionController::class, 'store'])
-    ->middleware('guest');
+    // ログアウト
+    Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
+        ->middleware('auth')
+        ->name('logout');
+});
 
 // 授業進捗画面ページ
 Route::middleware('auth')->prefix('user')->group(function () {
