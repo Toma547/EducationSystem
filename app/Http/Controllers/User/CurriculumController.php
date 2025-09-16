@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class CurriculumController extends Controller
 {
@@ -18,21 +19,33 @@ class CurriculumController extends Controller
             })
             ->get();
 
+        foreach ($available_grades as $grade) {
+            if (Str::startsWith($grade->name, '小学校')) {
+                $grade->class = 'elementary';
+            } elseif (Str::startsWith($grade->name, '中学校')) {
+                $grade->class ='junior';
+            } elseif (Str::startsWith($grade->name, '高校')) {
+                $grade->class = 'high';
+            } else {
+                $grade->class = '';
+            }
+        }
+            
         $curriculums = DB::table('curriculums')
             ->where('grade_id', $gradeId)
-            ->orWhere('always_delivery_flg', 1)
+            ->orWhere('alway_delivery_flg', 1)
             ->get();
 
         $delivery_times = DB::table('delivery_times')
-            ->whereIn('curriculum_id', $curriculums->pluck('id'))
+            ->whereIn('curriculums_id', $curriculums->pluck('id'))
             ->get()
-            ->groupBy('curriculum_id');
+            ->groupBy('curriculums_id');
 
-        return view('curriculum_list', [
-            'availableGrades' => $availableGrades,
+        return view('user/curriculum_list', [
+            'available_grades' => $available_grades,
             'curriculums'     => $curriculums,
-            'deliveryTimes'   => $deliveryTimes,
-            'currentGradeId'  => $gradeId,
+            'delivery_times'   => $delivery_times,
+            'current_grade_id'  => $gradeId,
         ]);
     }
 }
