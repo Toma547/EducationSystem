@@ -79,7 +79,7 @@
     padding: 12px;
     font-size: 18px;
     background-color: #555;
-    color: #fff;
+    color: white;
     border: none;
     border-radius: 6px;
     cursor: pointer;
@@ -168,7 +168,7 @@
     padding: 12px;
     font-size: 18px;
     background-color: #555;
-    color: #fff;
+    color: white;
     border: none;
     border-radius: 6px;
     cursor: pointer;
@@ -206,10 +206,6 @@
     padding: 0;
 }
 
-.common__logout--form-button:hover
-{
-    text-decoration: underline;
-}
 
 .common__header
 {
@@ -230,14 +226,9 @@
 {
     padding: 10px 20px;
     background: #666;
-    color: #fff;
+    color: white;
     border-radius: 10px;
     text-decoration: none;
-}
-
-.common__link:hover
-{
-    opacity: 0.8;
 }
 
 .common__logout--box
@@ -253,19 +244,88 @@
 
 .top__user
 {
-    background-color: #ffffff;
-    border: 1px solid #aaa;
-    border-radius: 8px;
+    background-color: white;
+    border: 1px solid black;
     padding: 24px;
-    max-width: 600px;
+    width: 600px;
     margin: 40px auto;
-    font-size: 16px;
-    color: #333;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
 .top__user p
 {
     margin-bottom: 12px;
     line-height: 1.6;
+}
+
+
+
+.banner-edit__back
+{
+    font-size: 20px;
+    text-decoration: none;
+    color: black;
+}
+
+.banner-edit
+{
+    padding: 20px;
+}
+
+.banner-edit__list
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.banner-edit__list--items
+{
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.banner-edit__add-button
+{
+    background: #0f0;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 50%;
+}
+
+.banner-edit__list--button
+{
+    background: red;
+    color: white;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 50%;
+}
+
+.banner-edit__list--img
+{
+    width: 200px;
+}
+
+.banner-edit__submit
+{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.banner-edit__submit--button
+{
+    width: 200px;
+    background: #555;
+    color: white;
+    padding: 8px 20px;
+    border: none;
+    cursor: pointer;
 }

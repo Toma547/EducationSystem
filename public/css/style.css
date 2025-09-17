@@ -43,6 +43,7 @@
 .curriculum-list__top--month
 {
     display: flex;
+    align-items: center;
     gap: 8px;
 }
 

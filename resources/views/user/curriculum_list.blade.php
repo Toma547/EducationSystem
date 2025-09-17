@@ -7,12 +7,16 @@
     <div class="curriculum-list">
         <div class="curriculum-list__top">
             <div class="curriculum-list__top--back">
-                <a href="#">←戻る</a>
+                <a href="{{ route('user.show.top') }}">←戻る</a>
             </div>
             <div class="curriculum-list__top--month">
-                <button class="curriculum-list__top--month-button">◀︎</button>
-                <h2>2025年9月スケジュール</h2>
-                <button class="curriculum-list__top--month-button">▶︎</button>
+                <a href="{{ route('user.show.curriculum', ['gradeId' => $current_grade_id, 'yearMonth' => $prevMonth]) }}">
+                    <button class="curriculum-list__top--month-button">◀︎</button>
+                </a>
+                <h2>{{ $currentMonth }}スケジュール</h2>
+                <a href="{{ route('user.show.curriculum', ['gradeId' => $current_grade_id, 'yearMonth' => $nextMonth]) }}">
+                    <button class="curriculum-list__top--month-button">▶︎</button>
+                </a>
             </div>
             <div class="curriculum-list__top--grade">
                 <span>
@@ -27,7 +31,7 @@
                     <ul>
                         @foreach($available_grades as $grade)
                             <li>
-                                <a href="{{ route('show.curriculum', ['gradeId' => $grade->id]) }}"
+                                <a href="{{ route('user.show.curriculum', ['gradeId' => $grade->id, 'yearMonth' => $current_year_month]) }}"
                                     class="{{ $grade->class }}">
                                     {{ $grade->name }}
                                 </a>
@@ -38,8 +42,8 @@
             </div>
 
             <div class="curriculum-list__main">
-                @foreach ($curriculums as $curriculum)
-                    <a href="#" class="curriculum-list__main--curriculum">
+                @foreach ($visible_curriculums as $curriculum)
+                    <a href="{{ route('user.show.delivery', ['id' => $curriculum->id]) }}" class="curriculum-list__main--curriculum">
                         <div class="curriculum-list__main--curriculum-thumbnail">
                             <img src="{{ asset($curriculum->thumbnail) }}" alt="授業画像">
                         </div>
@@ -48,12 +52,8 @@
                         </div>
                         <div class="curriculum-list__main--curriculum-times">
                             <ul>
-                                @foreach (collect($delivery_times[$curriculum->id] ?? [])->take(4) as $time)
-                                    <li>
-                                        {{ \Carbon\Carbon::parse($time->delivery_from)->format('n月j日 H:i') }}
-                                        ~
-                                        {{ \Carbon\Carbon::parse($time->delivery_to)->format('H:i') }}
-                                    </li>
+                                @foreach ($format_times[$curriculum->id] ?? [] as $format)
+                                    <li>{{ $format }}</li>
                                 @endforeach
                             </ul>
                         </div>
