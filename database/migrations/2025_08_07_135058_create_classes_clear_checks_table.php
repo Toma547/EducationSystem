@@ -18,6 +18,7 @@ return new class extends Migration
 
             $table->foreignId('users_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('grade_id')->constrained('grades')->onDelete('cascade');
+            $table->tinyInteger('clear_flg')->length(4)->default(0)->nullable();
             
             $table->timestamps();
         });

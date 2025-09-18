@@ -1,0 +1,332 @@
+.register__container
+{
+    width: 800px;
+    margin: 60px auto;
+    padding: 40px;
+}
+
+.register__header
+{
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.register__header--login
+{
+    font-size: 24px;
+    text-decoration: none;
+    color: #555;
+}
+
+.register__title
+{
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.register__title h1
+{
+    font-size: 60px;
+    color: #444;
+}
+
+.register__form
+{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.register__form--group
+{
+    display: flex;
+    align-items: center;
+    width: 600px;
+    margin: 0 auto;
+}
+
+.register__form--input
+{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.register__form--group label
+{
+    font-size: 16px;
+    margin-bottom: 0;
+    color: #333;
+    width: 120px;
+    text-align: right;
+    margin-right: 20px;
+}
+
+.register__form--group input
+{
+    padding: 10px 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    flex: 1;
+}
+
+.register__form--submit
+{
+    display: block;
+    margin: 30px auto 0;
+    width: 300px;
+    padding: 12px;
+    font-size: 18px;
+    background-color: #555;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.register__form--error
+{
+    color: red;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+
+
+.login__container
+{
+    width: 800px;
+    margin: 60px auto;
+    padding: 40px;
+}
+
+.login__header
+{
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.login__header--register
+{
+    font-size: 20px;
+    text-decoration: none;
+    color: #555;
+}
+
+.login__title
+{
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.login__title h1
+{
+    font-size: 48px;
+    color: #444;
+}
+
+.login__form
+{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.login__form--group
+{
+    display: flex;
+    align-items: center;
+    width: 600px;
+    margin: 0 auto;
+}
+
+.login__form--group label
+{
+    width: 120px;
+    font-size: 16px;
+    margin-bottom: 0;
+    margin-right: 20px;
+    text-align: right;
+    color: #333;
+}
+
+.login__form--group input
+{
+    flex: 1;
+    padding: 10px 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.login__form--submit
+{
+    display: block;
+    margin: 30px auto 0;
+    width: 300px;
+    padding: 12px;
+    font-size: 18px;
+    background-color: #555;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.login__form--input
+{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.login__form--error
+{
+    color: red;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+
+
+.common__logout--form
+{
+    display: inline;
+}
+
+.common__logout--form-button
+{
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font: inherit;
+    text-decoration: none;
+    padding: 0;
+}
+
+
+.common__header
+{
+    background-color: #4DEEEE;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.common__link--box
+{
+    display: flex;
+    gap: 10px;
+}
+
+.common__link
+{
+    padding: 10px 20px;
+    background: #666;
+    color: white;
+    border-radius: 10px;
+    text-decoration: none;
+}
+
+.common__logout--box
+{
+    display: flex;
+    align-items: center;
+}
+
+.main
+{
+    padding: 30px;
+}
+
+.top__user
+{
+    background-color: white;
+    border: 1px solid black;
+    padding: 24px;
+    width: 600px;
+    margin: 40px auto;
+}
+
+.top__user p
+{
+    margin-bottom: 12px;
+    line-height: 1.6;
+}
+
+
+
+.banner-edit__back
+{
+    font-size: 20px;
+    text-decoration: none;
+    color: black;
+}
+
+.banner-edit
+{
+    padding: 20px;
+}
+
+.banner-edit__list
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.banner-edit__list--items
+{
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.banner-edit__add-button
+{
+    background: #0f0;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 50%;
+}
+
+.banner-edit__list--button
+{
+    background: red;
+    color: white;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 50%;
+}
+
+.banner-edit__list--img
+{
+    width: 200px;
+}
+
+.banner-edit__submit
+{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.banner-edit__submit--button
+{
+    width: 200px;
+    background: #555;
+    color: white;
+    padding: 8px 20px;
+    border: none;
+    cursor: pointer;
+}
+
