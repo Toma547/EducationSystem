@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use App\Http\Requests\User\ProfileUpdateRequest;
+use App\Http\Requests\User\PasswordUpdateRequest;
+use Symfony\Component\HttpKernel\Profiler\Profile;
 
 class ProfileController extends Controller
 {
@@ -26,35 +29,14 @@ class ProfileController extends Controller
      */
     
      // プロフィール更新処理
-    public function update(Request $request)
+    public function update(ProfileUpdateRequest $request)
     {
         $user = Auth::user();
 
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'name_kana' => ['required', 'string', 'max:255'],
-            'email' => [
-                'required',
-                'email',
-                'max:255',
-                Rule::unique('users','email')->ignore($user->id)
-            ],
-            'profile_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-        ]);
+        // バリデーション済みデータを取得
+        $validated = $request->validated();
 
-        $path = null; // 未定義エラー防止
-
-        // 画像がアップロードされた場合
-        if ($request->hasFile('profile_image')) {
-            $path = $request->file('profile_image')->store('images/profile', 'public');
-        }
-
-        $user->update([
-            'name' => $request->name,
-            'name_kana' => $request->name_kana,
-            'email' => $request->email,
-            'profile_image' => $path ?? $user->profile_image,
-        ]);
+        $user->updateProfile($validated, $request->file('profile_image'));
 
         return redirect()->route('user.profile.edit')->with('status', 'プロフィールを更新しました');
     }
@@ -70,23 +52,17 @@ class ProfileController extends Controller
     }
 
     // パスワード更新処理
-    public function updatePassword(Request $request)
+    public function updatePassword(PasswordUpdateRequest $request)
     {
-        $request->validate([
-            'current_password' => 'required',
-            'password' => 'required|confirmed|min:8',
-        ]);
-
-        $user = Auth::user();
+       $user = Auth::user();
 
         // 現在のパスワードチェック
         if (!Hash::check($request->current_password, $user->password)) {
             return back()->withErrors(['current_password' => '現在のパスワードが正しくありません']);
         }
 
-        // パスワード更新
-        $user->password = Hash::make($request->password);
-        $user->save();
+        // モデルに切り出した更新処理を呼び出し
+        $user->updatePassword($request->password);
 
         return redirect()->route('user.profile.edit')->with('status', 'パスワードを変更しました');
     }
