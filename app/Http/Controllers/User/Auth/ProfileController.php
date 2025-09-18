@@ -31,6 +31,7 @@ class ProfileController extends Controller
      // プロフィール更新処理
     public function update(ProfileUpdateRequest $request)
     {
+        /** @var \App\Models\User $user */
         $user = Auth::user();
 
         // バリデーション済みデータを取得
@@ -54,6 +55,7 @@ class ProfileController extends Controller
     // パスワード更新処理
     public function updatePassword(PasswordUpdateRequest $request)
     {
+        /** @var \App\Models\User $user */
        $user = Auth::user();
 
         // 現在のパスワードチェック
