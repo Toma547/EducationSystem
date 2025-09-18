@@ -17,7 +17,7 @@ class Banner extends Model
 
     public function deleteAll()
     {
-        return DB::table($this->table)->truncate();
+        return DB::table($this->table)->delete();
     }
 
     public function insertBanner($path)

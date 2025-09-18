@@ -3,6 +3,7 @@
 
 @section('content')
     <a href="{{ route('admin.show.top') }}" class="banner-edit__back">←戻る</a>
+
     <div class="banner-edit">
         <h1 class="banner-edit__title">バナー管理</h1>
 
