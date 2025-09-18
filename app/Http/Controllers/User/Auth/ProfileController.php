@@ -69,3 +69,4 @@ class ProfileController extends Controller
         return redirect()->route('user.profile.edit')->with('status', 'パスワードを変更しました');
     }
 }
+
