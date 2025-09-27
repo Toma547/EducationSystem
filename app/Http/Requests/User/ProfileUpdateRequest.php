@@ -33,4 +33,13 @@ class ProfileUpdateRequest extends FormRequest
             'profile_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'ユーザーネームは入力必須項目です',
+            'name_kana.required' => 'カナは入力必須項目です',
+            'email.required' => 'メールアドレスは入力必須です',
+        ];
+    }
 }

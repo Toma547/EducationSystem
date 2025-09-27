@@ -14,6 +14,7 @@
         @csrf
         @method('PATCH')
 
+        {{-- プロフィール画像 --}}
         <div>
             <label class="block mb-2">プロフィール画像</label>
             <div class="flex items-center space-x-4">
@@ -35,26 +36,43 @@
             </div>
         </div>
 
+        {{-- ユーザーネーム --}}
         <div>
             <label class="block mb-2">ユーザーネーム</label>
             <input type="text" name="name" value="{{ old('name', $user->name) }}" class="border p-2 w-full">
+
+            @error('name')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
+        {{-- カナ --}}
         <div>
             <label class="block mb-2">カナ</label>
             <input type="text" name="name_kana" value="{{ old('name_kana', $user->name_kana) }}" class="border p-2 w-full">
+
+            @error('name_kana')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
+        {{-- メールアドレス --}}
         <div>
             <label class="block mb-2">メールアドレス</label>
             <input type="email" name="email" value="{{ old('email', $user->email) }}" class="border p-2 w-full">
+
+            @error('email')
+               <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
+        {{-- パスワード変更ボタン --}}
         <div>
             <button type="button" onclick="location.href='{{ route('user.password.edit') }}'"
                 class="bg-gray-200 px-3 py-1">パスワードを変更する</button>
         </div>
 
+        {{-- 登録ボタン --}}
         <button type="submit" class="bg-orange-500 text-white px-5 py-2">登録</button>
     </form>
 </div>

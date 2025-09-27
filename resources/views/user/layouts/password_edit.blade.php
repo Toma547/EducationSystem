@@ -14,16 +14,27 @@
         @csrf
         @method('PATCH')
 
+        {{-- 旧パスワード --}}
         <div>
             <label class="block mb-2">旧パスワード</label>
             <input type="password" name="current_password" class="border p-2 w-full">
+
+            @error('current_password')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
+        {{-- 新パスワード --}}
         <div>
             <label class="block mb-2">新パスワード</label>
             <input type="password" name="password" class="border p-2 w-full">
+
+            @error('password')
+               <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
+        {{-- 新パスワード確認 --}}
         <div>
             <label class="block mb-2">新パスワード確認</label>
             <input type="password" name="password_confirmation" class="border p-2 w-full">
