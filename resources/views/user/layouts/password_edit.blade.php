@@ -30,7 +30,7 @@
             <input type="password" name="password" class="border p-2 w-full">
 
             @error('password')
-               <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+               <p class="text-red-500 text-sm">{{ $message }}</p>
             @enderror
         </div>
 
@@ -38,6 +38,14 @@
         <div>
             <label class="block mb-2">新パスワード確認</label>
             <input type="password" name="password_confirmation" class="border p-2 w-full">
+
+            @error('password_confirmation')
+                <p class="text-red-500 text-sm">{{ $message }}</p>
+            @enderror
+            
+            @if($errors->has('password') && $errors->first('password') === '新パスワードと一致しません')
+               <p class="text-red-500 text-sm">新パスワードと一致しません</p>
+            @endif
         </div>
 
         <button type="submit" class="bg-orange-500 text-white px-5 py-2">登録</button>

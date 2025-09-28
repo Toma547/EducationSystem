@@ -11,7 +11,7 @@ class PasswordUpdateRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -21,18 +21,19 @@ class PasswordUpdateRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            'current_password' => 'required',
-            'password' => 'required|confirmed|min:8',
+            'current_password' => ['required', 'current_password'],
+            'password' => ['required','confirmed','min:8','string'],
         ];
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
             'current_password.required' => '現在設定されているパスワードを入力してください',
+            'current_password.current_password' => '現在設定されているパスワードと一致しません',
             'password.required' => '新パスワードは入力必須項目です',
             'password.min' => '新パスワードは8文字以上で入力してください',
             'password.confirmed' => '新パスワードと一致しません',
