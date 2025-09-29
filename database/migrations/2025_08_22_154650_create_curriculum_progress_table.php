@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-            // $table->foreignId('curriculum_id')->constrained('curriculums')->cascadeOnDelete();
+            $table->foreignId('curriculum_id')->constrained('curriculums')->cascadeOnDelete();
 
             $table->boolean('clear_flg')->default(false)->comment('0:未クリア, 1:クリア');
 
