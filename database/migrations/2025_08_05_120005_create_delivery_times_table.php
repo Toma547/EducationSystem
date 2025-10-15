@@ -13,9 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('grades', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
+        Schema::create('delivery_times', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->integer('curriculums_id')->nullable();
+            $table->dateTime('delivery_from')->nullable();
+            $table->dateTime('delivery_to')->nullable();
             $table->timestamps();
         });
     }
@@ -27,7 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('grades');
+        Schema::dropIfExists('delivery_times');
     }
 };
-

@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class DeliveryTime extends Model
 {
-    use HasFactory;
-
     protected $table = 'delivery_times';
 
     protected $fillable = [
@@ -16,4 +14,17 @@ class DeliveryTime extends Model
         'delivery_from',
         'delivery_to',
     ];
+
+    // （必要ならキャスト）
+    protected $casts = [
+        'delivery_from' => 'datetime',
+        'delivery_to'   => 'datetime',
+    ];
+
+    public function curriculum()
+    {
+        return $this->belongsTo(Curriculum::class, 'curriculums_id');
+    }
 }
+
+

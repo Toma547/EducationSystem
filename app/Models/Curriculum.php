@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\DeliveryTime;
 
 class Curriculum extends Model
 {
@@ -14,9 +15,22 @@ class Curriculum extends Model
     protected $fillable = [
         'title',
         'thumbnail',
-        'descripthon',
+        'description',
         'video_url',
         'alway_delivery_flg',
         'grade_id',
     ];
+
+    public function grade()
+    {
+        return $this->belongsTo(Grade::class, 'grade_id');
+    }
+
+    public function deliveryTimes()
+    {
+        return $this->hasMany(\App\Models\DeliveryTime::class, 'curriculums_id', 'id');
+    }    
+
+    
 }
+
