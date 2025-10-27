@@ -31,6 +31,14 @@ class Curriculum extends Model
         return $this->hasMany(\App\Models\DeliveryTime::class, 'curriculums_id', 'id');
     }    
 
+    public static function getByGrade($gradeId)
+    {
+        return self::with(['deliveryTimes', 'grade'])
+            ->where('grade_id', $gradeId)
+            ->get();
+    }
+
+
     
 }
 

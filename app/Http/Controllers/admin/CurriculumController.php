@@ -3,62 +3,66 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\UpdateCurriculumRequest;
 use App\Models\Curriculum;
 use App\Models\Grade;
+use Illuminate\Support\Facades\DB;
 
 class CurriculumController extends Controller
 {
-    /**
-     * 授業一覧表示
-     */
+    // 一覧表示
     public function showCurriculumList()
     {
         $curriculums = Curriculum::with('deliveryTimes')->get();
-        // ファイル名 culliculum_list.blade.php に合わせる
-        return view('admin.culliculum_list', compact('curriculums'));
+        $grades = Grade::all();
+        return view('admin.culliculum_list', compact('curriculums', 'grades'));
     }
 
-    /**
-     * 授業編集画面
-     */
+    // 編集画面表示
     public function edit($id)
     {
         $curriculum = Curriculum::findOrFail($id);
         $grades = Grade::all();
-        // ファイル名 culliculum_edit.blade.php に合わせる
         return view('admin.culliculum_edit', compact('curriculum', 'grades'));
     }
 
-    /**
-     * 授業更新処理
-     */
-    public function update(Request $request, $id)
-{
-    $curriculum = Curriculum::findOrFail($id);
+    // 授業更新処理
+    public function update(UpdateCurriculumRequest $request, $id)
+    {
+        try {
+            DB::beginTransaction(); // ✅ トランザクション開始
 
-    // リクエストデータをすべて取得
-    $data = $request->all();
+            $curriculum = Curriculum::findOrFail($id);
 
-    // ✅ チェックボックスが送られてこないときは 0 を代入
-    $data['alway_delivery_flg'] = $request->has('alway_delivery_flg') ? 1 : 0;
+            // バリデーション済みデータ取得
+            $data = $request->validated();
+            $data['alway_delivery_flg'] = $request->has('alway_delivery_flg') ? 1 : 0;
 
-    $curriculum->update($data);
+            $curriculum->update($data);
 
-    return redirect()->route('admin.show.curriculum.list')
-        ->with('success', '授業情報を更新しました');
-}
+            DB::commit(); // ✅ 成功時コミット
 
-public function filterByGrade($gradeId)
-{
-    // 該当学年の授業を取得
-    $curriculums = Curriculum::with('deliveryTimes', 'grade')
-        ->where('grade_id', $gradeId)
-        ->get();
+            return redirect()
+                ->route('admin.show.curriculum.list')
+                ->with('success', '授業情報を更新しました。');
+        } catch (\Exception $e) {
+            DB::rollBack(); // ❌ エラー時ロールバック
 
-    // JSON で返す
-    return response()->json($curriculums);
-}
+            \Log::error('【授業更新エラー】' . $e->getMessage());
 
+            return back()
+                ->withErrors(['error' => '更新に失敗しました。'])
+                ->withInput();
+        }
+    }
+
+    // 学年別フィルター
+    public function filterByGrade($gradeId)
+    {
+    // モデルのスコープを利用して取得
+        $curriculums = Curriculum::getByGrade($gradeId);
+
+        return response()->json($curriculums);
+    }
 
 }

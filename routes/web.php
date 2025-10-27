@@ -27,7 +27,6 @@ Route::post('/logout', function () {
     request()->session()->regenerateToken();
     return redirect('/login'); // ログアウト後の遷移先
 })->name('logout');
-
 Route::get('/', function () {
     return view('/admin');
 });
@@ -97,6 +96,8 @@ Route::put('curriculum_update/{id}', [CurriculumController::class, 'update'])
 
 Route::get('curriculums/filter/{gradeId}', [App\Http\Controllers\Admin\CurriculumController::class, 'filterByGrade'])
     ->name('curriculum.filter');
+
+    
 
 
     

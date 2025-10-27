@@ -21,7 +21,15 @@
       <a class="navbar-brand" href="{{ route('admin.show.banner.edit') }}">バナー管理</a>
 
       <!-- ログアウト -->
-      <a class="navbar-brand" href="{{ url('/logout') }}">ログアウト</a>
+      <a class="navbar-brand" href="#"
+         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+         ログアウト
+     </a>
+
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+    @csrf
+    </form>
+
     </div>
 
     <!-- 戻る（トップへ） -->
