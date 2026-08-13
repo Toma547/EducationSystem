@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\LoginController;
 use App\Http\Controllers\User\RegisterController;
+use App\Http\Controllers\User\TopController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,5 +35,7 @@ Route::prefix('user')->name('user.')->group(function () {
     Route::middleware('auth')->group(function () {
         //ログアウト
         Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+        //トップ画面表示
+        Route::get('top', [TopController::class, 'showTop'])->name('show.top');
     });
 });
