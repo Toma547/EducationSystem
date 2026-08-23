@@ -1,0 +1,136 @@
+.back-link-wrapper {
+    margin: 0 auto;
+
+    width: 80%;
+    padding-bottom: 16px;
+}
+
+.back-link {
+    color: #000;
+    text-decoration: none;
+}
+
+.delivery-content {
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+
+    width: 80%;
+}
+
+.video-wrapper {
+    position: relative;
+}
+
+.play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 60px;
+    height: 60px;
+    padding: 0;
+    padding-left: 4px;
+
+    background-color: rgba(35, 35, 35, 0.7);
+    border: none;
+    border-radius: 50%;
+
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 40px;
+    text-decoration: none;
+}
+
+.video-thumbnail {
+    display: block;
+    flex: 0 0 50%;
+
+    height: 300px;
+
+    object-fit: cover;
+}
+
+.clear-button {
+    margin: 0 auto;
+
+    min-width: 240px;
+    padding: 16px 24px;
+
+    background-color: #F39800;
+    border: 3px solid #d56c03;
+    border-radius: 10px;
+
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 24px;
+}
+
+.clear-button:hover {
+    background-color: #d56c03;
+    box-shadow: 0 2px 8px rgba(243, 152, 0, 0.3);
+
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.clear-status {
+    margin: 0 auto;
+
+    min-width: 240px;
+    padding: 16px 24px;
+
+    background-color: #909090;
+    border: 3px solid #606060;
+    border-radius: 10px;
+
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 24px;
+    text-align: center;
+}
+
+.description {
+    margin: 0 auto;
+
+    width: 80%;
+}
+
+.grade-label {
+    margin-top: 16px;
+    margin-bottom: 16px;
+
+    display: inline-block;
+
+    width: fit-content;
+    padding: 8px 32px;
+
+    background-color: #66c0fb;
+    border-radius: 10px;
+
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.class-title {
+    margin-top: 32px;
+    margin-bottom: 16px;
+
+    padding-bottom: 8px;
+
+    color: #333;
+    font-size: 24px;
+    font-weight: 600;
+    text-align: left;
+}
+
+.description-title {
+    font-size: 16px;
+    font-weight: 600;
+}

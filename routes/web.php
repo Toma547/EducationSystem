@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\LoginController;
 use App\Http\Controllers\User\RegisterController;
 use App\Http\Controllers\User\TopController;
+use App\Http\Controllers\User\DeliveryController;
+use App\Http\Controllers\User\CurriculumController;
+use App\Http\Controllers\User\ArticleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,5 +40,12 @@ Route::prefix('user')->name('user.')->group(function () {
         Route::post('logout', [LoginController::class, 'logout'])->name('logout');
         //トップ画面表示
         Route::get('top', [TopController::class, 'showTop'])->name('show.top');
+        //お知らせ詳細画面表示
+        Route::get('articles/{id}', [ArticleController::class, 'showArticle'])->name('show.article');
+        //配信画面表示
+        Route::get('delivery/{id}', [DeliveryController::class, 'showDelivery'])->name('show.delivery');
+        Route::post('delivery/{id}/complete', [DeliveryController::class, 'complete'])->name('complete.delivery');
+        //時間割画面表示
+        Route::get('curriculum_list', [CurriculumController::class, 'showCurriculumList'])->name('show.curriculum');
     });
 });
