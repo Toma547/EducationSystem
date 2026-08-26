@@ -46,6 +46,21 @@ class LoginController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @throws \Illuminate\Validation\ValidationException
      */
+
+    protected function validateLogin(Request $request)
+    {
+        $request->validate(
+            [
+                'email' => 'required|string',
+                'password' => 'required|string',
+            ],
+            [
+                'email.required' => 'メールアドレスを入力してください。',
+                'password.required' => 'パスワードを入力してください。',
+            ]
+        );
+    }
+
     protected function sendFailedLoginResponse(Request $request)
     {
         throw ValidationException::withMessages([
