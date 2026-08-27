@@ -19,7 +19,7 @@
     @if($progress?->clear_flg)
         <span class="clear-status">受講済み</span>
     @else
-        <form method="POST" action="{{ route('user.complete.delivery', ['id' => $curriculum->id]) }}">
+        <form class="clear-form" method="POST" action="{{ route('user.complete.delivery', ['id' => $curriculum->id]) }}">
             @csrf
             <button type="submit" class="clear-button">受講しました</button>
         </form>
