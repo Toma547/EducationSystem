@@ -13,11 +13,8 @@ class TopController extends Controller
      */
     public function showTop()
     {
-        $banners = Banner::orderBy('id')->get();
-
-        $articles = Article::orderBy('posted_date', 'desc')
-            ->take(5)
-            ->get();
+        $banners = Banner::getBanners();
+        $articles = Article::getLatestArticles();
 
         return view('user.top', compact('banners', 'articles'));
     }

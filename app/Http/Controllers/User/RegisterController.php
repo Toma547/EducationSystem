@@ -5,8 +5,9 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\User\RegisterRequest;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\JsonResponse;
 
 class RegisterController extends Controller
 {
@@ -40,51 +41,20 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
+    public function register(RegisterRequest $request)
     {
-        return Validator::make(
-            $data,
-            [
-                'name' => ['required', 'string', 'max:255'],
-                'name_kana' => ['required', 'string', 'max:255', 'regex:/^[ァ-ヶー]+$/u'],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                'password' => ['required', 'string', 'min:8', 'confirmed'],
-            ],
-            [
-                'name.required' => 'ユーザーネームを入力してください。',
-                'name_kana.required' => 'カナを入力してください。',
-                'name_kana.regex' => 'カナは全角カタカナで入力してください。',
-                'email.required' => 'メールアドレスを入力してください。',
-                'email.email' => '有効なメールアドレスを入力してください。',
-                'email.unique' => 'このメールアドレスは既に登録されています。',
-                'password.required' => 'パスワードを入力してください。',
-                'password.min' => 'パスワードは8文字以上の英数字で入力してください。',
-                'password.confirmed' => 'パスワードが一致しません。',
-            ]
-        );
-    }
+        $user = User::createUser($request->validated());
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\Models\User
-     */
+        event(new Registered($user));
 
-    protected function create(array $data)
-    {
-        return User::forceCreate([
-            'name' => $data['name'],
-            'name_kana' => $data['name_kana'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'grade_id' => 1,
-        ]);
+        $this->guard()->login($user);
+
+        if ($response = $this->registered($request, $user)) {
+            return $response;
+        }
+
+        return $request->wantsJson()
+            ? new JsonResponse([], 201)
+            : redirect($this->redirectPath());
     }
 }

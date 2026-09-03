@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -22,6 +23,7 @@ class User extends Authenticatable
         'name_kana',
         'email',
         'password',
+        'grade_id',
     ];
 
     /**
@@ -42,4 +44,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public static function createUser(array $data)
+    {
+        return self::create([
+            'name' => $data['name'],
+            'name_kana' => $data['name_kana'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+            'grade_id' => 1,
+        ]);
+    }
 }
