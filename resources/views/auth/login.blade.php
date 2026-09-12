@@ -13,6 +13,11 @@
             <a href="{{ route('user.show.register') }}">新規登録はこちら</a>
         </div>
         <h1>ログイン</h1>
+        @if (session('status'))
+            <div class="status">
+                {{ session('status') }}
+            </div>
+        @endif
         <form method="POST" action="{{ route('user.login') }}">
             @csrf
             <div class="form-group">
@@ -36,4 +41,3 @@
         </form>
     </body>
 </html>
-

@@ -7,7 +7,6 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Http\Requests\User\RegisterRequest;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\JsonResponse;
 
 class RegisterController extends Controller
 {
@@ -25,13 +24,6 @@ class RegisterController extends Controller
     use RegistersUsers;
 
     /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/user/login';
-
-    /**
      * Create a new controller instance.
      *
      * @return void
@@ -47,14 +39,8 @@ class RegisterController extends Controller
 
         event(new Registered($user));
 
-        $this->guard()->login($user);
-
-        if ($response = $this->registered($request, $user)) {
-            return $response;
-        }
-
-        return $request->wantsJson()
-            ? new JsonResponse([], 201)
-            : redirect($this->redirectPath());
+        return redirect()
+            ->route('user.show.login')
+            ->with('status', '新規登録が完了しました。ログインしてください。');
     }
 }

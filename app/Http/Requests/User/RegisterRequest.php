@@ -35,6 +35,7 @@ class RegisterRequest extends FormRequest
     {
         return [
             'name.required' => 'ユーザーネームを入力してください。',
+            'name.max' => 'ユーザーネームは255文字以内で入力してください。',
             'name_kana.required' => 'カナを入力してください。',
             'name_kana.regex' => 'カナは全角カタカナで入力してください。',
             'email.required' => 'メールアドレスを入力してください。',
