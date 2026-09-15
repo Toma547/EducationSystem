@@ -7,7 +7,7 @@
 </div>
 <div class="delivery-content">
     {{-- 動画 --}}
-    <div class="video-wrapper">
+    <div class="video-wrapper{{ $isAvailable ? '' : ' is-unavailable' }}">
         <img class="video-thumbnail" src="{{ asset('storage/' . $curriculum->thumbnail) }}" alt="{{ $curriculum->title }}">
         @if ($isAvailable)
             <a href="{{ $curriculum->video_url }}" class="play-button">▶︎</a>
