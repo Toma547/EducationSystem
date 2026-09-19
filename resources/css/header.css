@@ -1,0 +1,63 @@
+.app-header {
+    background-color: #F39800;
+}
+
+.nav-button {
+    margin-right: 8px;
+
+    display: inline-block;
+
+    min-width: 120px;
+    padding: 8px 20px;
+
+    background-color: #00947c;
+    border-radius: 6px;
+
+    color: #ffffff !important;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+}
+
+.nav-button:last-child {
+    margin-right: 0;
+}
+
+.nav-button:hover {
+    background-color: #007a68;
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+}
+
+.nav-left,
+.nav-right {
+    margin: 0;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0;
+
+    list-style: none;
+}
+
+.nav-left {
+    gap: 12px;
+}
+
+.nav-right {
+    margin-left: auto;
+}
+
+.logout-button {
+    background-color: transparent;
+    border: none;
+
+    color: #000;
+    text-decoration: none;
+}
