@@ -23,20 +23,21 @@
             <div class="form-group">
                 <div class="form-row">
                     <label for="email">メールアドレス</label>
-                    <input type="email" id="email" name="email" value="{{ old('email') }}">
+                    <input type="email" id="email" name="email" value="{{ old('email') }}" @error('email') aria-invalid="true" @enderror>
                 </div>
+                @error('email')
+                    <div class="error">{{ $message }}</div>
+                @enderror
             </div>
             <div class="form-group">
                 <div class="form-row">
                     <label for="password">パスワード</label>
-                    <input type="password" id="password" name="password">
+                    <input type="password" id="password" name="password" @error('password') aria-invalid="true" @enderror>
                 </div>
+                @error('password')
+                    <div class="error">{{ $message }}</div>
+                @enderror
             </div>
-            @if ($errors->any())
-                <div class="error">
-                    {{ $errors->first() }}
-                </div>
-            @endif
             <button type="submit">ログイン</button>
         </form>
     </body>
